@@ -26,7 +26,7 @@ function App() {
         <Router>
           <Layout theme={theme} toggleTheme={toggleTheme}>
             <Routes>
-              <Route path="/home" element={<Home />} ></Route>
+              <Route path="/" element={<Home />} ></Route>
               <Route path="/login" element={<Login2 />} ></Route>
               <Route path="/signup" element={<Sign2 />} ></Route>
               <Route path="/dashboard" element={<Dashboard />} ></Route>
