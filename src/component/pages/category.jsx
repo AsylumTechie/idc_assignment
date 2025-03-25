@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
-import Featuring from "../product cart/featuring";
-import Collection from "../product cart/collection";
+import Featuring from "../sections/featuring";
+import Collection from "../sections/programs";
 export default function Category() {
   return (
     <div>

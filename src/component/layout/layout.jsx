@@ -1,14 +1,13 @@
-import Navbar1 from "../navbar/navbar1";
-import Navbar2 from "../navbar/navbar2";
+import Navbar1 from "../navbar/Header";
 import Footer from "../footer/footer";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, theme, toggleTheme }) => {
   return (
     <div>
-      <Navbar1 />
-      <Navbar2 />
-      <main>{children}</main>
-      <Footer />
+      <Navbar1 theme={theme} toggleTheme={toggleTheme} />
+      
+      <main >{children}</main>
+      <Footer theme={theme}/>
     </div>
   );
 };
