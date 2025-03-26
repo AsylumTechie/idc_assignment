@@ -4,4 +4,4 @@
 
 
 # Start
-npm rund dev for both frontned and backend
+npm run dev for both frontned and backend
