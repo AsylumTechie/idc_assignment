@@ -15,6 +15,28 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this inquiry?"))
+      return;
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/inquiries/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) throw new Error("Failed to delete inquiry");
+
+      setEnquiries((prevEnquiries) =>
+        prevEnquiries.filter((enquiry) => enquiry._id !== id)
+      );
+    } catch (error) {
+      alert("Error deleting inquiry: " + error.message);
+    }
+  };
+
   useEffect(() => {
     const fetchEnquiries = async () => {
       try {
@@ -41,7 +63,6 @@ export default function Dashboard() {
 
   return (
     <div className="h-auto flex flex-col min-h-screen bg-[#F5F5F5] text-[#333333] py-14">
-  
       <div className="hidden lg:flex justify-center items-center bg-[#1A1A2E] text-white py-6 px-8">
         <h1 className="text-2xl font-bold">Admin Control</h1>
       </div>
@@ -104,19 +125,28 @@ export default function Dashboard() {
                   <th className="py-3 px-6 border">Email</th>
                   <th className="py-3 px-6 border">Message</th>
                   <th className="py-3 px-6 border">Date</th>
+                  <th className="py-3 px-6 border">Action</th>
                 </tr>
               </thead>
               <tbody>
                 {enquiries.map((enquiry) => (
                   <tr
-                    key={enquiry.id}
+                    key={enquiry._id}
                     className="border bg-[#F5F5F5] text-[#333333]"
                   >
                     <td className="py-3 px-6 border">{enquiry.name}</td>
                     <td className="py-3 px-6 border">{enquiry.email}</td>
                     <td className="py-3 px-6 border">{enquiry.message}</td>
                     <td className="py-3 px-6 border">
-                      {new Date(enquiry.date).toLocaleDateString()}
+                      {new Date(enquiry.createdAt).toLocaleDateString()}
+                    </td>
+                    <td className="py-3 px-6 border text-center">
+                      <button
+                        onClick={() => handleDelete(enquiry._id)}
+                        className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-800 transition"
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 ))}
